@@ -1,10 +1,10 @@
 import React from "react";
 
 
-const Home =()=>{
+const Tickets =()=>{
   return(
-  <div>Home</div>
+  <div>Tickets</div>
 )}
 
 
-export default Home;
+export default Tickets;
