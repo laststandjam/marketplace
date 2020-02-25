@@ -22,13 +22,21 @@ const NavBar = () => {
           <NavLink exact to="/login" className="nav-link">
             Login
           </NavLink>
+          <NavLink exact to="/user" className="nav-link">
+            Profile
+          </NavLink>
           <NavDropdown title="Tickets" id="basic-nav-dropdown">
             <NavDropdown.Item>
-            <NavLink exact to="/tickets"> Browse </NavLink>
+              <NavLink exact to="/tickets">
+                {" "}
+                Browse{" "}
+              </NavLink>
             </NavDropdown.Item>
-           <NavDropdown.Item>
-            <NavLink exact to="/add">
-              Make a Ticket</NavLink></NavDropdown.Item>
+            <NavDropdown.Item>
+              <NavLink exact to="/add">
+                Make a Ticket
+              </NavLink>
+            </NavDropdown.Item>
           </NavDropdown>
         </Nav>
         <Form inline>

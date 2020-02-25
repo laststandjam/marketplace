@@ -1,26 +1,29 @@
-import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import React, {  Component , useState } from "react";
 
-import NavBar from "./componets/Navbar";
-import Home from "./componets/Home";
-import Signup from "./componets/Signup";
-import Tickets from "./componets/Tickets";
-import User from "./componets/User";
+import NavBar from "./componets/Navbar"
+import Routes from "./componets/Routes"
 
 import "./App.css";
 
-function App() {
+class App extends Component {
+  state = {
+    currentUser: {},
+    isLoggedIn: false,
+  };
+  doSetCurrentUser = currentUser => {
+    this.setState({
+      currentUser,
+      isLoggedIn: currentUser ? true: false,
+    });
+  };
+  render(){
   return (
     <div>
       <NavBar />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/signup" component={Signup} />
-        <Route exact path="/tickets" component={Tickets} />
-        <Route exact path="/user" component={User} />
-      </Switch>
+      <Routes doSetCurrentUser={this.doSetCurrentUser}/>
     </div>
   );
+}
 }
 
 export default App;
