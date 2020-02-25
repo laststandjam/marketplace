@@ -17,9 +17,10 @@ class App extends Component {
     });
   };
   render(){
+    const { isLoggedIn, currentUser } = this.state;
   return (
     <div>
-      <NavBar />
+      <NavBar isLoggedIn={isLoggedIn} currentUser={currentUser} doSetCurrentUser={this.doSetCurrentUser} />
       <Routes doSetCurrentUser={this.doSetCurrentUser}/>
     </div>
   );

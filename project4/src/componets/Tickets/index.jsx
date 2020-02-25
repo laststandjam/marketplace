@@ -1,9 +1,22 @@
-import React from "react";
-
+import React, {useState}from "react";
+import {Link} from "react-router-dom"
 
 const Tickets =()=>{
+  const [tickets, setTickets] = useState([])
+
+  // async function fetchData(){
+  //   const ticketResults = await getTickets()
+  //   setTickets(ticketResults.results)
+  // }
   return(
-  <div>Tickets</div>
+  <div>
+    <ul style="">
+      {tickets.map((t,i)=>(
+        <li key={i}>
+          <Link to={`/tickets/${t.id}`}> {t.title}</Link>
+          </li>))}
+      </ul>
+  </div>
 )}
 
 

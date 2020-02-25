@@ -22,7 +22,7 @@ class Login extends Component {
     const { email, password } = this.state;
     e.preventDefault();
     try {
-      await Firebase.doSignInWithEmailAndPassword(email, password);
+      await Firebase.doSignUserInWithEmailAndPassword(email, password);
       this.props.doSetCurrentUser({
         email,
       });

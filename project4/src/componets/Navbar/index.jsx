@@ -9,7 +9,17 @@ import {
   FormControl
 } from "react-bootstrap";
 
-const NavBar = () => {
+import firebase from "../../resources/FireBase/firebase";
+
+const NavBar = ({ isLoggedIn, currentUser, doSetCurrentUser }) => {
+  const logoutUser = async () => {
+    try {
+      await firebase.doSignOut();
+      doSetCurrentUser(null);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="/">The Peoples Market</Navbar.Brand>
@@ -19,9 +29,21 @@ const NavBar = () => {
           <NavLink exact to="/" className="nav-link">
             Home
           </NavLink>
-          <NavLink exact to="/login" className="nav-link">
-            Login
-          </NavLink>
+          {isLoggedIn ? (
+            <>
+              <span
+                className={"nav-link"}
+                onClick={logoutUser}
+              >
+                LOGOUT
+              </span>
+            </>
+          ) : (
+            <NavLink exact to="/login" className="nav-link">
+              Login
+            </NavLink>
+          )
+          }
           <NavLink exact to="/user" className="nav-link">
             Profile
           </NavLink>
@@ -48,23 +70,5 @@ const NavBar = () => {
   );
 };
 
-// const Navbar = () => {
-//   return (
-//     <div>
-//       <NavLink exact to="/">
-//         Home
-//       </NavLink>
-//       <NavLink exact to="/login">
-//         Login
-//       </NavLink>
-//       <NavLink exact to="/tickets">
-//         Tickets
-//       </NavLink>
-//       <NavLink exact to="/user/">
-//         Profile
-//       </NavLink>
-//     </div>
-//   );
-// };
 
 export default NavBar;
