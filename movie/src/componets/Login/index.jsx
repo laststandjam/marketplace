@@ -32,11 +32,6 @@ class Login extends Component {
     } catch (error) {
       console.log(error);
     }
-
-    // this.props.doSetCurrentUser(user);
-    // this.setState({
-    //   isAuth: true,
-    // });
   };
 
   render() {
