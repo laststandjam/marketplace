@@ -1,30 +1,56 @@
 import React, {useState, useEffect}from "react";
 import Firebase from '../../resources/FireBase/firebase';
 
-
 const AddTicket =()=>{
-    const [tickets, setTickets] = useState([])
+    const [inputs, setInputs] = useState({});
+    const handleSubmit = async event =>{
+        event.preventDefault()
+        try {
+            const docRef = await Firebase.database.collection('tickets').add(inputs)
+            console.log('Document written with ID: ', docRef.id)
+          } catch (error) {
+            console.error('Error adding document: ', error)
+          }
+          alert('Movie submitted')
+        }
+    const handleChange = (event) =>{
+        event.persist()
+        setInputs(inputs=>({...inputs, [event.target.name]:event.target.value,
+        acceptated:false,
+        players:["currentUser"],
+        winner:null,
+        author:"currentuser",
+        closed:false
 
-    const fetchTickets = async () => {
-      try {
-        const ticketsArr = []
-        const ticketsRef = await Firebase.database.collection('tickets')
-        const querySnapshot = await ticketsRef.get()
-        querySnapshot.forEach(doc => {
-          console.log(doc.id, ' => ', doc.data())
-          ticketsArr.push(doc.data())
-        })
-        setTickets(ticketsArr)
-      } catch (error) {
-        console.log(error)
-      }
+    }))
+
     }
-    useEffect(()=>{
-        fetchTickets()
-    },[])
-return(
-<div>tickets</div>
-)}
+    return (
+        <form onSubmit={handleSubmit}>
+          <input onChange={handleChange}
+            type="text"
+            name="title"
+            placeholder="Title"
+          />
+          <input onChange={handleChange}
+            type="text"
+            name="description"
+            placeholder="description"
+          />
+          <input onChange={handleChange}
+            type="number"
+            name="amount"
+            placeholder= "0"
+            />
+            <input onChange={handleChange}
+            type="text"
+            name="dateClose"
+            />
+
+          <button type="submit">Submit</button>
+        </form>
+        );
+      }
 
 
 export default AddTicket;

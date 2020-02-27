@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Redirect } from "react-router-dom";
+import {userContext} from "../../resources/Context/User"
 
 import Firebase from "../../resources/FireBase/firebase";
 import { Wrapper, Form } from "./style";

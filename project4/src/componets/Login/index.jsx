@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 import Firebase from '../../resources/FireBase/firebase';
 
 import { PasswordForgetLink } from '../PasswordForget';
+
+import Signup from '../Signup'
 
 class Login extends Component {
   state = {
@@ -58,6 +60,7 @@ class Login extends Component {
           <button type='submit'>Login</button>
         </form>
         <PasswordForgetLink />
+        <Link exact to="/Signup">Signup</Link>
       </>
     );
   }
