@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import { NavLink } from "react-router-dom";
 import {
   Nav,
@@ -11,7 +11,7 @@ import {
 
 import firebase from "../../resources/FireBase/firebase";
 
-const NavBar = ({ isLoggedIn, currentUser, doSetCurrentUser }) => {
+const NavBar = ({ isLoggedIn, doSetCurrentUser }) => {
   const logoutUser = async () => {
     try {
       await firebase.doSignOut();

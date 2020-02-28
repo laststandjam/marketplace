@@ -1,8 +1,10 @@
 import React, {useState, useEffect}from "react";
-import Firebase from '../../resources/FireBase/firebase';
+import Firebase,{auth} from '../../resources/FireBase/firebase';
 
-const AddTicket =()=>{
+const AddTicket =(currentUser)=>{
+console.log(currentUser.currentUser.uid )
     const [inputs, setInputs] = useState({});
+
     const handleSubmit = async event =>{
         event.preventDefault()
         try {
@@ -17,9 +19,9 @@ const AddTicket =()=>{
         event.persist()
         setInputs(inputs=>({...inputs, [event.target.name]:event.target.value,
         acceptated:false,
-        players:["currentUser"],
+        players:[currentUser.currentUser.uid],
         winner:null,
-        author:"currentuser",
+        author:currentUser.currentUser.uid,
         closed:false
 
     }))

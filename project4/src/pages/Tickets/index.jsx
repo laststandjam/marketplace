@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from "react";
 import Firebase from '../../resources/FireBase/firebase';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Link } from "react-router-dom";
 
 
 const Tickets =()=>{
@@ -12,7 +12,7 @@ const Tickets =()=>{
         const querySnapshot = await ticketsRef.get()
         querySnapshot.forEach(doc => {
           console.log(doc.id, ' => ', doc.data())
-          ticketsArr.push(doc.data())
+          ticketsArr.push({...doc.data(), id: doc.id})
         })
         setTickets(ticketsArr)
       } catch (error) {
@@ -27,7 +27,7 @@ return(
       <ul>
         {tickets.map((t,i)=>(
           <li key={i}>
-<Route exact to={`/tickets/${t.id}`}> {t.title} {t.description}</Route>
+<Link to={`/tickets/${t.id}`}> {console.log()} {t.title} {t.description}</Link>
             </li>))}
         </ul>
     </div>

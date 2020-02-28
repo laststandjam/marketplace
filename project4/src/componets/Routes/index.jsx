@@ -8,8 +8,9 @@ import Tickets from "../Tickets"
 import AddTicket from "../AddTicket"
 import User from "../User"
 import PasswordForget from "../PasswordForget"
+import TicketShow from "../TicketShow"
 
-export default ({ doSetCurrentUser }) => (
+export default ({ doSetCurrentUser, currentUser}) => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route
@@ -22,9 +23,11 @@ export default ({ doSetCurrentUser }) => (
       path="/signup"
       render={() => <Signup doSetCurrentUser={doSetCurrentUser} />}
     />
+    
     <Route exact path="/tickets" component={Tickets} />
-    <Route exact path="/add" component={AddTicket} />
+    <Route exact path="/add" render={() => <AddTicket currentUser={currentUser} />}/>
     <Route exact path="/user" component={User} />
+    <Route exact path="/tickets/:id" component={TicketShow}/>
 
     <Route exact path="/password-forget" component={PasswordForget}/>
   </Switch>
