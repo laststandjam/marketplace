@@ -16,12 +16,11 @@ class App extends Component {
   async componentDidMount() {
     await Firebase.auth.onAuthStateChanged(async authUser => {
       if (authUser) {
-        const user = await Firebase.database
-          .collection("users")
-          .where("uid", "==", authUser.uid)
-          .get();
+        const userId = Firebase.getUser().uid 
+        const userRef = Firebase.database.collection("user").doc(userId) 
       this.setState({
-        currentUser: user.docs[0].data(),
+        
+        currentUser: userRef,
         isLoggedIn: true
       })
 
@@ -42,10 +41,10 @@ class App extends Component {
       <div>
         <NavBar
           isLoggedIn={isLoggedIn}
-          currentUser={currentUser}
+          currentUser={currentUser.uid}
           doSetCurrentUser={this.doSetCurrentUser}
         />
-        <Routes currentUser={currentUser} doSetCurrentUser={this.doSetCurrentUser} />
+        <Routes  currentUser={currentUser} doSetCurrentUser={this.doSetCurrentUser} />
       </div>
     );
   }

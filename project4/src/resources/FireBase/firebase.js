@@ -31,6 +31,15 @@ class Firebase {
 
   doSignOut = () => this.auth.signOut();
 
+  getUser = () => {
+    var user = this.auth.currentUser;
+    if (user) {
+      return user
+    } else {
+      console.log("not signed in")
+    }
+  };
+
   // doGetViewedMovies = () => this.database
 }
 

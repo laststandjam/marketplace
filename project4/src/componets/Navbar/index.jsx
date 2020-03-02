@@ -35,7 +35,7 @@ const NavBar = ({ isLoggedIn, doSetCurrentUser }) => {
                 className={"nav-link"}
                 onClick={logoutUser}
               >
-                LOGOUT
+                Logout
               </span>
             </>
           ) : (

@@ -1,27 +1,27 @@
-import React, {useState, useEffect}from "react";
-import Firebase,{auth} from '../../resources/FireBase/firebase';
+import React, {useState}from "react";
+import Firebase from '../../resources/FireBase/firebase';
 
-const AddTicket =(currentUser)=>{
-console.log(currentUser.currentUser.uid )
+const AddTicket =async (currentUser)=>{
+
     const [inputs, setInputs] = useState({});
-
+   
     const handleSubmit = async event =>{
         event.preventDefault()
         try {
+          const userId = await Firebase.getUser().uid 
             const docRef = await Firebase.database.collection('tickets').add(inputs)
             console.log('Document written with ID: ', docRef.id)
           } catch (error) {
             console.error('Error adding document: ', error)
           }
-          alert('Movie submitted')
+          alert('ticket submitted')
         }
     const handleChange = (event) =>{
         event.persist()
         setInputs(inputs=>({...inputs, [event.target.name]:event.target.value,
-        acceptated:false,
-        players:[currentUser.currentUser.uid],
         winner:null,
-        author:currentUser.currentUser.uid,
+        author:currentUser.currentUser.userName,
+        authorId: userId,
         closed:false
 
     }))

@@ -1,59 +1,119 @@
-import React, { useState } from 'react';
+import React, { useState } from 'react'
+import { Redirect } from 'react-router-dom'
 import Firebase from '../../resources/FireBase/firebase'
 
+const Signup = ({ doSetCurrentUser }) => {
+  const [state, setState] = useState({
+    username: '',
+    email: '',
+    passwordOne: '',
+    passwordTwo: '',
+  })
+  const [isAuth, setIsAuth] = useState(false)
+  const [error, setError] = useState(null)
 
-const Signup = ({ doSetCurrentUser, doAuth }) => {
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [userName, setUserName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password1, setPassword1] = useState('')
-  const [password2, setPassword2] = useState('')
- 
+  const handleChange = evt => {
+    const value = evt.target.value
+    setState({
+      ...state,
+      [evt.target.name]: value,
+    })
+  }
+
+  const handleFormSubmit = async e => {
+    const { username, email, passwordOne } = state
+    e.preventDefault()
+    try {
+      const res = await Firebase.doCreateUserWithEmailAndPassword(
+        email,
+        passwordOne
+      )
+      doSetCurrentUser({
+        username,
+        email,
+      })
+      const user = await Firebase.auth.currentUser
+      try {
+        console.log(user / 'hit')
+        Firebase.database.collection('users')
+          .doc(user.uid)
+          .set({
+            userName: username,
+            balance: 100
+          })
+        console.log(`saved ${user} to db collection`)
+      } catch (error) {
+        console.log('failed to db collection', error)
+      }
+      setIsAuth(true)
+    } catch (error) {
+      setError(error)
+      setTimeout(() => {
+        setError(null)
+      }, 3000)
+    }
+  }
 
   const isInvalid =
-      password1 !== password2 ||
-      password1 === '' ||
-      email === '' ||
-      firstName === '' ||
-      lastName === ''
+    state.passwordOne !== state.passwordTwo ||
+    state.passwordOne === '' ||
+    state.email === '' ||
+    state.username === ''
 
-  const handleForm = async e => {
-    e.preventDefault();
-    if(isInvalid){ return } else {
-    try {
-      const { user } = await Firebase.doCreateUserWithEmailAndPassword(email, password1);
-      await Firebase.database.collection('users').add({
-        userName: userName,
-        firstName: firstName,
-        lastName: lastName,
-        email: email,
-        uid: user.uid,
-      })
-      doSetCurrentUser({
-        email,
-      });
-      Firebase.doAuth();
-    } catch (err) {
-      console.log(err)
-    }
-  }};
+  if (isAuth) {
+    return <Redirect to='/' />
+  }
 
   return (
     <div>
-      <form onSubmit={handleForm}>
-        <div>
-          <input type="text" placeholder="First Name" name='firstName' value={firstName} onChange={e => setFirstName(e.target.value)}  />
-          <input type="text" placeholder="Last Name" name='lastName' value={lastName} onChange={e => setLastName(e.target.value)}  />
-          <input type="text" placeholder="user name" name='userName' value={userName} onChange={e => setUserName(e.target.value)}  />
-          <input type="email" placeholder="Email" name='email' value={email} onChange={e => setEmail(e.target.value)}  />
-          <input type="password" placeholder="Password" name='password1' value={password1} onChange={e => setPassword1(e.target.value)}  />
-          <input type="password" placeholder="Confirm Password" name='password2' value={password2} onChange={e => setPassword2(e.target.value)}  />
-        </div>  
-      <button type='submit' disabled={isInvalid}>Sign up</button>
+      <h1>SIGN UP</h1>
+      <form onSubmit={handleFormSubmit}>
+        <div
+          style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <input
+            placeholder='Username'
+            name='username'
+            value={state.username}
+            onChange={handleChange}
+          />
+          <input
+            placeholder='Email'
+            name='email'
+            type='email'
+            value={state.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder='Password'
+            name='passwordOne'
+            type='password'
+            value={state.passwordOne}
+            onChange={handleChange}
+            required
+          />
+          <input
+            placeholder='Confirm Password'
+            name='passwordTwo'
+            type='password'
+            value={state.passwordTwo}
+            onChange={handleChange}
+            required
+          />
+          <button disabled={isInvalid} type='submit'>
+            Submit
+          </button>
+        </div>
       </form>
+      {error && <div style={{ color: 'red' }}>{error.message}</div>}
     </div>
   )
 }
 
-export default Signup;
+export default Signup
