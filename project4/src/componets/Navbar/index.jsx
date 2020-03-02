@@ -55,7 +55,7 @@ const NavBar = ({ isLoggedIn, doSetCurrentUser }) => {
               </NavLink>
             </NavDropdown.Item>
             <NavDropdown.Item>
-              <NavLink exact to="/add">
+              <NavLink exact to="/create">
                 Make a Ticket
               </NavLink>
             </NavDropdown.Item>

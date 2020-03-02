@@ -8,6 +8,7 @@ import AddTicket from "../../pages/AddTicket";
 import User from "../../pages/User";
 import PasswordForget from "../../pages/PasswordForget";
 import TicketShow from "../../pages/TicketShow";
+import CreateTicket from "../../pages/CreateTicket"
 
 export default ({ doSetCurrentUser }) => (
   <Switch>
@@ -24,8 +25,9 @@ export default ({ doSetCurrentUser }) => (
     />
 
     <Route exact path="/tickets" render={() => <Tickets />} />
-    <Route exact path="/add" render={() => <AddTicket />} />
+    <Route exact path="/add" component={AddTicket}/>
     <Route exact path="/user" component={User} />
+    <Route exact path="/create" component={CreateTicket}/>
     <Route
       exact
       path="/tickets/:id"

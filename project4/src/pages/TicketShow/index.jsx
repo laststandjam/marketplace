@@ -10,6 +10,7 @@ const TicketShow =({...props})=>{
 const [ticket, setTicket] = useState({})
 const ticketId=props.match.params.id
 const ticketRef = Firebase.database.collection('tickets').doc(ticketId)
+let user={}
 
 
 useEffect(() => {

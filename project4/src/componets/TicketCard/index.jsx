@@ -1,31 +1,33 @@
-import React from "react";
+import React, {useState} from "react";
 import Firebase from "../../resources/FireBase/firebase";
 
+
+
 const TicketCard = ({ ticket, ticketId }) => {
-  let currentUser = { ...Firebase.getUser() };
-  const userId = currentUser.uid;
+  const [user, setUser] = useState({})
+  const userId = Firebase.getUser().uid;
+  const userRef = Firebase.database.collection("users").doc(userId)
   const ticketRef = Firebase.database.collection("tickets").doc(ticketId);
-  const userRef = Firebase.database.collection("users").doc(userId);
-  userRef
-    .get()
-    .then(function(doc) {
+  
+  
+  const fetchUser = () => {
+    userRef.get().then(function(doc) {
       if (doc.exists) {
-        console.log("Document data:", doc.data());
-        currentUser = doc.data()
+       return setUser({...doc.data()})
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
       }
-    })
-    .catch(function(error) {
-      console.log("Error getting document:", error);
     });
+  };
+
   const buyTicket = async () => {
     try {
+      console.log("hit")
       ticketRef.set(
         {
-          playerIds: [ticket.authorId, userId],
-          playerUsernames: [ticket.author, currentUser.userName],
+          
+          playerUsernames: [ticket.authour, user.userName],
           accepted: true
         },
         { merge: true }
@@ -33,8 +35,9 @@ const TicketCard = ({ ticket, ticketId }) => {
     } catch (error) {
       console.log(error);
     }
-  };
 
+  };
+fetchUser()
   return (
     <div>
       <h1>{ticket.title}</h1>
@@ -43,7 +46,7 @@ const TicketCard = ({ ticket, ticketId }) => {
       <h3>{ticket.amount}</h3>
       {ticket.accepted ? (
         <h4>
-          {ticket.players[0].userName} vs {ticket.players[1].userName}
+          {ticket.playerUsernames[0]} vs {ticket.playerUsernames[1]}
         </h4>
       ) : (
         <button onClick={buyTicket}>X</button>
