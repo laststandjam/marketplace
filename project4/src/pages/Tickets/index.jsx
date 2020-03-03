@@ -29,7 +29,7 @@ return(
         {tickets.map((t,i)=>(
           
           <Card key={i} style={{ width: '18rem' }}>
-<Link to={`/tickets/${t.id}`} currentUser={currentUser.currentUser}> <Card.Title>{t.title}</Card.Title> <Card.Body>{t.amount}</Card.Body><Card.Footer>{t.author}</Card.Footer></Link>
+<Link to={`/tickets/${t.id}`} currentUser={currentUser.currentUser}> <Card.Title>{t.title}</Card.Title> <Card.Body>{t.wager}</Card.Body><Card.Footer>{t.author}</Card.Footer></Link>
             </Card>))}
           </CardDeck>   </div>
   )}

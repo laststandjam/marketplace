@@ -39,6 +39,10 @@ class Firebase {
       console.log("not signed in")
     }
   };
+  getBookRef = ()=>{
+    const bookRef = Firebase.database.collection("the book").doc('balance')
+    return bookRef
+}
 
   // doGetViewedMovies = () => this.database
 }

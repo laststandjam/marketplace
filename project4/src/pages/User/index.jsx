@@ -2,7 +2,7 @@ import React, {useState, useEffect} from "react";
 import Firebase from "../../resources/FireBase/firebase"
 import { Link } from "react-router-dom";
 import {useSession} from "../../App"
-
+import {CardDeck, Card} from 'react-bootstrap'
 
 
 const User =()=>{
@@ -30,13 +30,13 @@ useEffect(()=>{
 },[])
 return(
   <div>
-    <ul>
+    <CardDeck>
       {tickets.map((t,i)=>(
-        <li key={i}>
-<Link to={`/tickets/${t.id}`}> {t.title} {t.description}</Link>  <button>Claim win</button><button> Forfeit</button>
-          </li>))}
-      </ul>
-  </div>
+        
+        <Card key={i} style={{ width: '18rem' }}>
+<Link to={`/tickets/${t.id}`}> <Card.Title>{t.title}</Card.Title> <Card.Body>{t.wager}</Card.Body><Card.Footer>{t.author}</Card.Footer></Link>
+          </Card>))}
+        </CardDeck>   </div>
 )}
 
 export default User;

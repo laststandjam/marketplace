@@ -1,17 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Firebase from "../../resources/FireBase/firebase";
-import {useSession} from '../../App'
+import { useSession } from "../../App";
+import firebase from "firebase";
 
 const CreateTicket = () => {
-  const [inputs, setInputs] = useState({});
-  const userId = useSession().uid
+  const [user, setUser] = useState({});
+  const [title, setTitle] = useState("");
+  const [wager, setWager] = useState(0);
+  const [description, setDescription] = useState("");
+  const userId = useSession().uid;
   const userRef = Firebase.database.collection("users").doc(userId);
-  let user = {};
-  const fetchUser = () => {
-    userRef.get().then(function(doc) {
+  const bookRef = Firebase.database.collection("the book").doc('balance')
+  console.log(bookRef)
+  const fetchUser = async () => {
+    await userRef.get().then(function(doc) {
       if (doc.exists) {
-        user = { ...doc.data() };
-        console.log(user);
+        console.log("bookRef hit", bookRef)
+        setUser({...doc.data()})
+        return 
       } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -21,48 +27,58 @@ const CreateTicket = () => {
   const handleSubmit = async event => {
     event.preventDefault();
     try {
-      const docRef = await Firebase.database.collection("tickets").add(inputs);
-      console.log("Document written with ID: ", docRef.id);
+      await Firebase.database
+        .collection("tickets")
+        .doc()
+        .set({
+          title: title,
+          wager: wager,
+          description: description,
+          winner: [],
+          loser: [],
+          open: true,
+          author: user.userName,
+          authorId: userId
+        });
+      userRef.update({
+        balance: firebase.firestore.FieldValue.increment(-wager)
+      });
+      bookRef.update({
+        amount: firebase.firestore.FieldValue.increment(+wager)
+      })
     } catch (error) {
       console.error("Error adding document: ", error);
     }
     alert("ticket submitted");
   };
-  const handleChange = event => {
-    event.persist();
-    setInputs(inputs => ({
-      ...inputs,
-      [event.target.name]: event.target.value,
-      winner: [],
-      loser: [],
-      open: true,
-      author: user.userName,
-      authorId: userId
-    }));
+  const setter = set => e => {
+    const { target } = e;
+    const { value } = target;
+    set(value);
   };
-  
-  fetchUser();
+  useEffect(() => {
+    fetchUser()
+  }, [])
   return (
     <form onSubmit={handleSubmit}>
       <input
-        onChange={handleChange}
+        onChange={setter(setTitle)}
         type="text"
         name="title"
         placeholder="Title"
       />
       <input
-        onChange={handleChange}
+        onChange={setter(setDescription)}
         type="text"
         name="description"
         placeholder="description"
       />
       <input
-        onChange={handleChange}
+        onChange={setter(setWager)}
         type="number"
         name="amount"
         placeholder="0"
       />
-      <input onChange={handleChange} type="text" name="dateClose" />
 
       <button type="submit">Submit</button>
     </form>
