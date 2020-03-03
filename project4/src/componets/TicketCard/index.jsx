@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Firebase from "../../resources/FireBase/firebase";
 import firebase from "firebase"
-
+import { Card }from "react-bootstrap";
 
 const TicketCard = ({ ticket, ticketId }) => {
   const [user, setUser] = useState({})

@@ -1,7 +1,7 @@
 import React, {useState, useEffect}from "react";
 import Firebase from '../../resources/FireBase/firebase';
 import { Link } from "react-router-dom";
-
+import {Card, CardDeck} from "react-bootstrap"
 
 const Tickets =(currentUser)=>{
     const [tickets, setTickets] = useState([])
@@ -25,13 +25,13 @@ const Tickets =(currentUser)=>{
     },[])
 return(
     <div>
-      <ul>
+      <CardDeck>
         {tickets.map((t,i)=>(
-          <li key={i}>
-<Link to={`/tickets/${t.id}`} currentUser={currentUser.currentUser}> {t.title} {t.description}</Link>
-            </li>))}
-        </ul>
-    </div>
+          
+          <Card key={i} style={{ width: '18rem' }}>
+<Link to={`/tickets/${t.id}`} currentUser={currentUser.currentUser}> <Card.Title>{t.title}</Card.Title> <Card.Body>{t.amount}</Card.Body><Card.Footer>{t.author}</Card.Footer></Link>
+            </Card>))}
+          </CardDeck>   </div>
   )}
 
 export default Tickets

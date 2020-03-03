@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Firebase from "../../resources/FireBase/firebase";
 import {useSession} from '../../App'
+
 const CreateTicket = () => {
   const [inputs, setInputs] = useState({});
   const userId = useSession().uid
