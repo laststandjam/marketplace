@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import Firebase from '../../resources/FireBase/firebase'
-
-const Signup = ({ doSetCurrentUser }) => {
+import {useSession} from '../../App'
+const Signup = () => {
   const [state, setState] = useState({
     username: '',
     email: '',
@@ -11,7 +11,7 @@ const Signup = ({ doSetCurrentUser }) => {
   })
   const [isAuth, setIsAuth] = useState(false)
   const [error, setError] = useState(null)
-
+  const user = useSession()
   const handleChange = evt => {
     const value = evt.target.value
     setState({
@@ -28,10 +28,6 @@ const Signup = ({ doSetCurrentUser }) => {
         email,
         passwordOne
       )
-      doSetCurrentUser({
-        username,
-        email,
-      })
       const user = await Firebase.auth.currentUser
       try {
         console.log(user / 'hit')
@@ -60,7 +56,7 @@ const Signup = ({ doSetCurrentUser }) => {
     state.email === '' ||
     state.username === ''
 
-  if (isAuth) {
+  if (user) {
     return <Redirect to='/' />
   }
 

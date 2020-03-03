@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import Firebase from "../../resources/FireBase/firebase";
-import { doExpression } from "../../../../../Library/Caches/typescript/3.6/node_modules/@babel/types/lib";
-
+import {useSession} from '../../App'
 const CreateTicket = () => {
   const [inputs, setInputs] = useState({});
-  const userId = Firebase.getUser().uid;
+  const userId = useSession().uid
   const userRef = Firebase.database.collection("users").doc(userId);
   let user = {};
   const fetchUser = () => {
@@ -33,12 +32,14 @@ const CreateTicket = () => {
     setInputs(inputs => ({
       ...inputs,
       [event.target.name]: event.target.value,
-      winner: null,
-      closed: false,
-      
-      authour: user.userName
+      winner: [],
+      loser: [],
+      open: true,
+      author: user.userName,
+      authorId: userId
     }));
   };
+  
   fetchUser();
   return (
     <form onSubmit={handleSubmit}>

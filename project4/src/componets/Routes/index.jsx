@@ -10,18 +10,18 @@ import PasswordForget from "../../pages/PasswordForget";
 import TicketShow from "../../pages/TicketShow";
 import CreateTicket from "../../pages/CreateTicket"
 
-export default ({ doSetCurrentUser }) => (
+export default ({ currentUser }) => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route
       exact
       path="/login"
-      render={() => <Login doSetCurrentUser={doSetCurrentUser} />}
+      render={() => <Login currentUser={currentUser} />}
     />
     <Route
       exact
       path="/signup"
-      render={() => <Signup doSetCurrentUser={doSetCurrentUser} />}
+      render={() => <Signup currentUser={currentUser} />}
     />
 
     <Route exact path="/tickets" render={() => <Tickets />} />

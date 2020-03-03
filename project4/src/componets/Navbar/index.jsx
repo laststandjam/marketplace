@@ -11,11 +11,10 @@ import {
 
 import firebase from "../../resources/FireBase/firebase";
 
-const NavBar = ({ isLoggedIn, doSetCurrentUser }) => {
+const NavBar = ({ isLoggedIn, currentUser }) => {
   const logoutUser = async () => {
     try {
       await firebase.doSignOut();
-      doSetCurrentUser(null);
     } catch (error) {
       console.log(error);
     }

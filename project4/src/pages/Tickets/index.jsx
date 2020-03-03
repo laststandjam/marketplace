@@ -9,7 +9,7 @@ const Tickets =(currentUser)=>{
     const fetchTickets = async () => {
       try {
         const ticketsArr = []
-        const querySnapshot = await ticketsRef.get()
+        const querySnapshot = await ticketsRef.where("open", "==", true ).get()
         console.log(querySnapshot)
         querySnapshot.forEach(doc => {
           console.log(doc.id, ' => ', doc.data())
