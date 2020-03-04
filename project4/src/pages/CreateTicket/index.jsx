@@ -11,11 +11,10 @@ const CreateTicket = () => {
   const userId = useSession().uid;
   const userRef = Firebase.database.collection("users").doc(userId);
   const bookRef = Firebase.database.collection("the book").doc('balance')
-  console.log(bookRef)
+  
   const fetchUser = async () => {
     await userRef.get().then(function(doc) {
       if (doc.exists) {
-        console.log("bookRef hit", bookRef)
         setUser({...doc.data()})
         return 
       } else {
@@ -35,6 +34,7 @@ const CreateTicket = () => {
           wager: wager,
           description: description,
           winner: [],
+          winnerId: [],
           loser: [],
           open: true,
           author: user.userName,
