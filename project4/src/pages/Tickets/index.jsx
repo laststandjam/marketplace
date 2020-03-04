@@ -1,6 +1,6 @@
 import React, {useState, useEffect}from "react";
 import Firebase from '../../resources/FireBase/firebase';
-import { Link } from "react-router-dom";
+import { Link, } from "react-router-dom";
 import {Card, CardDeck} from "react-bootstrap"
 
 const Tickets =(currentUser)=>{
@@ -10,7 +10,6 @@ const Tickets =(currentUser)=>{
       try {
         const ticketsArr = []
         const querySnapshot = await ticketsRef.where("open", "==", true ).get()
-        console.log(querySnapshot)
         querySnapshot.forEach(doc => {
           console.log(doc.id, ' => ', doc.data())
           ticketsArr.push({...doc.data(), id: doc.id})

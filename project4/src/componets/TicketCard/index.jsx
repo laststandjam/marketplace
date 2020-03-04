@@ -1,36 +1,39 @@
 import React, { useState, useEffect } from "react";
 import Firebase from "../../resources/FireBase/firebase";
 import firebase from "firebase";
-import { render } from "@testing-library/react";
+import {useParams} from 'react-router-dom'
+import TicketShow from "../../pages/TicketShow";
 
-const TicketCard = ({ ticketId }) => {
+const TicketCard = () => {
   const [user, setUser] = useState({});
   const [ticket, setTicket] = useState({});
-  const userId = Firebase.getUser().uid;
+   const params = useParams()
+   const userId = Firebase.getUser().uid;
   const userRef = Firebase.database.collection("users").doc(userId);
   const bookRef = Firebase.database.collection("the book").doc("balance");
-  const ticketRef = Firebase.database.collection("tickets").doc(ticketId);
-  const fetchTicket = async () => {
-    await ticketRef.get().then(function(doc) {
-      if (doc.exists) {
-        let ticket = { ...doc.data() };
-        setTicket({ ...doc.data() });
-        ticketChecker(ticket);
-      } else {
-        console.log("No such document!");
-      }
-    });
-  };
-
+  const ticketRef = Firebase.database.collection('tickets').doc(params.id)
+  console.log(ticketRef)
+ 
   useEffect(() => {
-    if (isEmpty(ticket)) return;
-    if (ticket.winnerId[0]) {
-      const winnerRef = Firebase.database
-        .collection("tickets")
-        .doc(ticket.winnerId[0]);
-    }
-  }, []);
+    console.log(params.id, 'this is params id')
 
+    async function getTicket() {
+      try {
+        const ticket = await ticketRef.get()
+        console.log(ticket.data(), 'this is ticket data')
+        setTicket({...ticket.data()})
+        console.log(ticket, 'this is ticket after')
+  
+      } catch (error) {
+        console.log(error)
+      }
+      return ticketRef
+    }
+    getTicket()},[params.id])
+    
+    function refreshPage() {
+      window.location.reload(false);
+    }
   const fetchUser = async () => {
     await userRef.get().then(function(doc) {
       if (doc.exists) {
@@ -47,20 +50,33 @@ const TicketCard = ({ ticketId }) => {
     }
     return true;
   }
-  const ticketChecker = async ticket => {
+  const ticketChecker = async () => {
+    console.log("checkerRunning")
     if (isEmpty(ticket)) {
       return;
     }
     if (
-      (ticket.winner && ticket.winner.lenghth === 2) ||
+      (ticket.winner && ticket.winner.length === 2) ||
       (ticket.loser && ticket.loser.length === 2)
     ) {
+      console.log("dispute hit")
+      await ticketRef.set(
+        {
+          disputed: true
+        },
+        {
+          merge: true
+        })
+      
+    }if(ticket.setteled){
+      console.log('this ticket has already been setteled')
     } else if (
+      ticket&&
       ticket.winner &&
       ticket.winner.length === 1 &&
       ticket.loser &&
       ticket.loser.length === 1
-    ) {
+    ) {console.log("ticket settled")
       await Firebase.database
         .collection("users")
         .doc(ticket.winnerId[0])
@@ -83,7 +99,10 @@ const TicketCard = ({ ticketId }) => {
         }
       );
     } else {
-      console.log("ticket still in play");
+      console.log("checker is running on this", ticket)
+      console.log(ticket.winner&&ticket.winner.length)
+      console.log(ticket.loser&&ticket.loser.length)
+    
     }
   };
   const buyTicket = async () => {
@@ -94,7 +113,10 @@ const TicketCard = ({ ticketId }) => {
       await bookRef.update({
         amount: firebase.firestore.FieldValue.increment(+ticket.wager)
       });
-
+      console.log( ticket)
+      console.log ("check ticket open",  ticket.open)
+      console.log ("check user.username", user.userName)
+      console.log("userId", userId)
       ticketRef.set(
         {
           open: false,
@@ -113,47 +135,63 @@ const TicketCard = ({ ticketId }) => {
       winner: firebase.firestore.FieldValue.arrayUnion(user.userName),
       winnerId: firebase.firestore.FieldValue.arrayUnion(userId)
     });
-    ticketChecker(ticket);
+    ticketChecker();
   };
   const forfeit = () => {
     ticketRef.update({
       loser: firebase.firestore.FieldValue.arrayUnion(user.userName),
       loserId: firebase.firestore.FieldValue.arrayUnion(userId)
     });
-    ticketChecker(ticket);
+    ticketChecker();
   };
   useEffect(() => {
-    fetchTicket();
+    
     fetchUser();
   }, []);
-  if (ticket.setteled){
+  if (ticket && ticket.setteled){
+    console.log("setteled", ticket)
     return(<div>
          <h1>{ticket.title}</h1>
 <h2>Congrats {ticket.winner[0]}!!! {(+ticket.wager*2)*.99} Zed have been deposisted in your account</h2>
         </div>
     )
-  }else if(ticket.open){
+  }else if(ticket && ticket.disputed){
+    return(
+    <div>
+      <h1>{ticket.tile}</h1>
+  <h2>This ticket has come into dispute a mark has been added agaisnt both profiles and you haven given the house {ticket.wager*2} Zed </h2>
+    </div>)
+  }else if(ticket&&ticket.open){
+    console.log("open", ticket)
     return(
       <div>
          <h1>{ticket.title}</h1>
          <h2>{ticket.description}</h2>
         <h3>Buy ticket for {ticket.wager} Zed</h3>
         <p>Written by {ticket.author}</p>
-        <button onClick={buyTicket}>Buy Ticket</button>
+        <button onClick={(()=>{
+          buyTicket()
+          setTimeout(() => {
+            refreshPage()
+          }, 1000);
+        }) }>Buy Ticket</button>
       </div>
     )}
-    if(!ticket.open){ console.log("ticket not open condition", ticket)
+    if(ticket&&!ticket.open){ console.log( ticket)
       return(<div>
           <h1>{ticket.title}</h1>
         <h2>{ticket.description}</h2>
         <h3>Playing this ticket are</h3>
         <h4>{ticket.playerUsernames&&ticket.playerUsernames[1]} Challenging {ticket.author}</h4>
-      <p>If you have met the conditions or your openent has failed too claim your Zed<button onClick={claimWin}>Claim Win</button></p>
-      <p>Vice-versa???<button onClick={forfeit}> Forfeit Ticket </button></p>
+      <p>If you have met the conditions or your openent has failed too claim your Zed<button onClick={(()=>{
+          claimWin()
+        }) }>Claim Win</button></p>
+      <p>Vice-versa<button onClick={(()=>{
+          forfeit()
+        }) }> Forfeit Ticket </button></p>
         </div>
       )
     }else{
-      fetchTicket() 
       console.log(ticket)
       return(
         
@@ -162,13 +200,3 @@ const TicketCard = ({ ticketId }) => {
   }
   
 export default TicketCard;
-// {/* {ticket.open ? (
-      //   <button onClick={buyTicket}>X</button>
-      // ) : (
-      //   <h4>
-      //     {ticket.playerUsernames && ticket.playerUsernames[0]} vs{" "}
-      //     {ticket.playerUsernames && ticket.playerUsernames[1]}
-      //     <button onClick={claimWin}>Claim</button>
-      //     <button onClick={forfeit}>Forfeit</button>
-      //   </h4>
-      // )} */}
