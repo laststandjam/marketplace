@@ -9338,6 +9338,11 @@ react-motion@^0.5.2:
     prop-types "^15.5.8"
     raf "^3.1.0"
 
+react-multi-carousel@^2.5.2:
+  version "2.5.2"
+  resolved "https://registry.yarnpkg.com/react-multi-carousel/-/react-multi-carousel-2.5.2.tgz#da6c0d68b9f264e56e63386cbbe66e174b13e4c4"
+  integrity sha512-dGDNAA1MmLZV+nvxvF8T2GlQnvv726jBdC/hLT7GD44PaL1ONE5nkKPrS/SeYvf5TLVxCUYzRyY7BMpUuQtXpw==
+
 react-overlays@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/react-overlays/-/react-overlays-2.1.1.tgz#ffe2090c4a10da6b8947a1c7b1a67d0457648a0d"
@@ -9455,6 +9460,11 @@ react-scripts@3.4.0:
     workbox-webpack-plugin "4.3.1"
   optionalDependencies:
     fsevents "2.1.2"
+
+react-scrollable-list@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/react-scrollable-list/-/react-scrollable-list-1.2.0.tgz#e931f4efe95ec4e9cd110a177c0bfbb10c9cd0a0"
+  integrity sha512-sVG2uyFpMnkqpIi68h5Qlckn8Hza2UdJV+e6KTuk7FcxZqWn//uebhp2xNf093Op2E4IxhXu3dhhcjOOYVHqFA==
 
 react-transition-group@^4.0.0:
   version "4.3.0"

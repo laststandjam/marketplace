@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from "react";
 import Firebase from "../../resources/FireBase/firebase"
+import ReactScrollableList from 'react-scrollable-list'
 
 const Home =()=>{
   const [topUsers, setTopUsers] = useState([])
   const [topTickets, setTopTickets]= useState([])
-  const ticketsRef = Firebase.database.collection("tickets").orderBy("wager",'desc').limit(5)
+  const ticketsRef = Firebase.database.collection("tickets").orderBy("wager",'desc')
   const userRef = Firebase.database.collection("users").orderBy("balance", 'desc').limit(5)
   const ticketsArr=[]
   const userArr=[]
@@ -27,13 +28,10 @@ const Home =()=>{
   }, [])
   return(
     <div>
-    <ul style={{ marginTop: 0 }}>
-      {topUsers.map((u, i) => (
-        <li key={i}>
-         {u.userName}
-        </li>
-      ))}
-    </ul>
+    <ReactScrollableList border="2px solid black"
+    listItems={topUsers}
+    heighOfItem={10}
+   />
   </div>
 )
 }

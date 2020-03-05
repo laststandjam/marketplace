@@ -20,7 +20,7 @@ const NavBar = ({ isLoggedIn, currentUser }) => {
     }
   };
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="#fd7e14" expand="lg">
       <Navbar.Brand href="/">The Peoples Market</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">

@@ -3,6 +3,7 @@ import Firebase from "../../resources/FireBase/firebase";
 import firebase from "firebase";
 import {useParams} from 'react-router-dom'
 import TicketShow from "../../pages/TicketShow";
+import styled, {css} from "styled-components"
 
 const TicketCard = () => {
   const [user, setUser] = useState({});
