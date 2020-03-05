@@ -45,18 +45,17 @@ const App = () => {
     return <div>Loading</div>
   }
   return (
-    <div>
+    <>
       <userContext.Provider value={{ user }}>
         <Navbar
           isLoggedIn={user}
           currentUser={user}
         
         />
-        <div className='App'>
           <Routes />
-        </div>
+        
       </userContext.Provider>
-    </div>
+    </>
   )
 }
 
