@@ -4,7 +4,6 @@ import Home from "../../pages/Home";
 import Login from "../../pages/Login";
 import Signup from "../../pages/Signup";
 import Tickets from "../../pages/Tickets";
-import AddTicket from "../../pages/AddTicket";
 import User from "../../pages/User";
 import PasswordForget from "../../pages/PasswordForget";
 import TicketShow from "../../pages/TicketShow";
@@ -25,7 +24,7 @@ export default ({ currentUser }) => (
     />
 
     <Route exact path="/tickets" render={() => <Tickets />} />
-    <Route exact path="/add" component={AddTicket}/>
+    
     <Route exact path="/user" component={User} />
     <Route exact path="/create" component={CreateTicket}/>
     <Route

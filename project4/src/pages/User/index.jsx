@@ -1,23 +1,25 @@
 import React, {useState, useEffect} from "react";
 import Firebase from "../../resources/FireBase/firebase"
-import {Link} from 'react-router-dom'
+import {Link, Red} from 'react-router-dom'
 import {useSession} from "../../App"
 import {CardDeck, Card,} from 'react-bootstrap'
 import ItemsCarousel from 'react-items-carousel';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
+import './style.css'
 
 
 const User =()=>{
 const [activeItemIndex, setActiveItemIndex] = useState(0);
 const chevronWidth = 40;
-const [tickets, setTickets] = useState([])
-const [closedTickets, setClosedTickets]=useState([])
-const [inPlayTickets, setinPlayTickets] = useState([])
-const [user, setUser] = useState([])
  const userId= useSession().uid
  const userRef = Firebase.database.collection("users").doc(userId);
  const ticketsRef = Firebase.database.collection("tickets")
+ 
+ const [inPlayTickets, setinPlayTickets] = useState([])
+ const [tickets, setTickets] = useState([])
+ const [closedTickets, setClosedTickets] = useState([])
+ const [user, setUser]=useState([])
 console.log(inPlayTickets)
 console.log(closedTickets)
 useEffect(() => {
@@ -70,8 +72,14 @@ const sortTickets=()=>{
 useEffect(() => {
   sortTickets()
 }, [tickets])
+
 return(
   <div>
+    <header>
+<h1>Hello {user.userName} your Zed balance is at {user.balance}</h1>
+
+<pr> </pr>
+    </header>
     <ItemsCarousel 
      infiniteLoop={true}
      requestToChangeActive={setActiveItemIndex}
@@ -80,17 +88,18 @@ return(
      gutter={30}
      leftChevron={<button>{'<'}</button>}
      rightChevron={<button>{'>'}</button>}
-     outsideChevron
+     outsideChevron={false}
      chevronWidth={chevronWidth}>
-      {tickets.map((t,i)=>(
-        <div key={i}>
-<Link to={`/tickets/${t.id}`}> <Card.Title>{t.title}</Card.Title> <Card.Body>{t.wager}</Card.Body><Card.Footer>{t.author}</Card.Footer></Link>
-          </div>))}
+      {inPlayTickets.map((t,i)=>(
+        <Card classname="cards" key={i}><Card.Title style={{opacity:"01"}}>{t.title}</Card.Title><Card.Body>{t.wager}<p>{t.description}</p><p>{t.author}</p></Card.Body><Card.Footer><button><Link to={`/tickets/${t.id}`} >Play Ticket</Link></button></Card.Footer></Card>
+          ))}
            </ItemsCarousel>
-           <div style={{"padding":"0 60px","maxWidth":1000,"margin":"0 auto"}}><ul>
+           <div classname="scroll" style={{"padding":"0 60px","maxWidth":1000,"margin":"0 auto"}}>
+             <ul>
       {closedTickets.map((c,d)=>(
+        
         <li key={d}>
-<Link to={`/tickets/${d.id}`}>{c.title}</Link>
+<Link to={`/tickets/${c.id}`}>{c.title}</Link>
           </li>))}
            </ul>
            </div> 

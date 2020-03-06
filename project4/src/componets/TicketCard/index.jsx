@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import Firebase from "../../resources/FireBase/firebase";
 import firebase from "firebase";
 import {useParams} from 'react-router-dom'
-import TicketShow from "../../pages/TicketShow";
-import styled, {css} from "styled-components"
+
 
 const TicketCard = () => {
   const [user, setUser] = useState({});
@@ -20,9 +19,13 @@ const TicketCard = () => {
 
     async function getTicket() {
       try {
-        const ticket = await ticketRef.get()
-        console.log(ticket.data(), 'this is ticket data')
-        setTicket({...ticket.data()})
+        const ticket = await ticketRef.onSnapshot(function(doc) {
+          console.log("Current data: ", doc.data())
+          var data = doc.data();
+          setTicket({...data})
+          console.log(ticket)
+      });
+        
         console.log(ticket, 'this is ticket after')
   
       } catch (error) {
@@ -99,12 +102,7 @@ const TicketCard = () => {
           merge: true
         }
       );
-    } else {
-      console.log("checker is running on this", ticket)
-      console.log(ticket.winner&&ticket.winner.length)
-      console.log(ticket.loser&&ticket.loser.length)
-    
-    }
+    } 
   };
   const buyTicket = async () => {
     try {
@@ -114,10 +112,7 @@ const TicketCard = () => {
       await bookRef.update({
         amount: firebase.firestore.FieldValue.increment(+ticket.wager)
       });
-      console.log( ticket)
-      console.log ("check ticket open",  ticket.open)
-      console.log ("check user.username", user.userName)
-      console.log("userId", userId)
+    
       ticketRef.set(
         {
           open: false,
@@ -130,16 +125,15 @@ const TicketCard = () => {
       console.log(error);
     }
   };
-  const claimWin = async () => {
-    console.log("claim win hit");
+  const claimWin = async () => {;
     await ticketRef.update({
       winner: firebase.firestore.FieldValue.arrayUnion(user.userName),
       winnerId: firebase.firestore.FieldValue.arrayUnion(userId)
     });
     ticketChecker();
   };
-  const forfeit = () => {
-    ticketRef.update({
+  const forfeit = async () => {
+    await ticketRef.update({
       loser: firebase.firestore.FieldValue.arrayUnion(user.userName),
       loserId: firebase.firestore.FieldValue.arrayUnion(userId)
     });
@@ -149,8 +143,12 @@ const TicketCard = () => {
     
     fetchUser();
   }, []);
+  useEffect(() => {
+    
+    
+  }, [ticket]);
+  
   if (ticket && ticket.setteled){
-    console.log("setteled", ticket)
     return(<div>
          <h1>{ticket.title}</h1>
 <h2>Congrats {ticket.winner[0]}!!! {(+ticket.wager*2)*.99} Zed have been deposisted in your account</h2>
@@ -163,7 +161,6 @@ const TicketCard = () => {
   <h2>This ticket has come into dispute a mark has been added agaisnt both profiles and you haven given the house {ticket.wager*2} Zed </h2>
     </div>)
   }else if(ticket&&ticket.open){
-    console.log("open", ticket)
     return(
       <div>
          <h1>{ticket.title}</h1>

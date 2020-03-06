@@ -10,16 +10,14 @@ const CreateTicket = () => {
   const [description, setDescription] = useState("");
   const userId = useSession().uid;
   const userRef = Firebase.database.collection("users").doc(userId);
-  const bookRef = Firebase.database.collection("the book").doc('balance')
-  
+  const bookRef = Firebase.database.collection("the book").doc("balance");
+
   const fetchUser = async () => {
     await userRef.get().then(function(doc) {
       if (doc.exists) {
-        setUser({...doc.data()})
-        return 
+        setUser({ ...doc.data() });
+        return;
       } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
       }
     });
   };
@@ -45,11 +43,11 @@ const CreateTicket = () => {
       });
       bookRef.update({
         amount: firebase.firestore.FieldValue.increment(+wager)
-      })
+      });
     } catch (error) {
       console.error("Error adding document: ", error);
     }
-    alert("ticket submitted");
+    
   };
   const setter = set => e => {
     const { target } = e;
@@ -57,10 +55,19 @@ const CreateTicket = () => {
     set(value);
   };
   useEffect(() => {
-    fetchUser()
-  }, [])
+    fetchUser();
+  }, []);
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
+    <form
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center"
+      }}
+      onSubmit={handleSubmit}
+    >
       <input
         onChange={setter(setTitle)}
         type="text"
@@ -81,7 +88,9 @@ const CreateTicket = () => {
       />
 
       <button type="submit">Submit</button>
+      
     </form>
+    </div>
   );
 };
 

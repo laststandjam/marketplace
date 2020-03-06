@@ -38,9 +38,14 @@ class Login extends Component {
       return <Redirect to='/' />;
     }
     return (
-      <>
+      <div>
         <h1>Login</h1>
-        <form onSubmit={this.handleFormSubmit}>
+        <form style={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}onSubmit={this.handleFormSubmit}>
           <input
             name='email'
             onChange={this.handleChange}
@@ -56,8 +61,8 @@ class Login extends Component {
           <button type='submit'>Login</button>
         </form>
         <PasswordForgetLink />
-        <Link exact to="/signup">Dont have an account??</Link>
-      </>
+        <Link  to="/signup">Dont have an account??</Link>
+      </div>
     );
   }
 }
