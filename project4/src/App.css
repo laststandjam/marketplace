@@ -1,10 +1,7 @@
-/* html  {
-  background-image: linear-gradient(109deg, #16e060 24.39%, #fad250 24.39%, #fad250 50%, #16e060 50%, #16e060 74.39%, #fad250 74.39%, #fad250 100%);
-background-size: 43.36px 125.93px;
-} */
+
 
 html, #root{
-  background-image: linear-gradient(109deg, #16e060 24.39%, #fad250 24.39%, #fad250 50%, #16e060 50%, #16e060 74.39%, #fad250 74.39%, #fad250 100%);
+ background-color: #0e0816;
 background-size: 43.36px 125.93px;
 
 }
@@ -12,8 +9,8 @@ background-size: 43.36px 125.93px;
 
 
 .Navbar{
-  background-color: #16e060;
- text-decoration-color: #fad250
+  background-color: #4717f6;
+ text-decoration-color: #E7DfDD
 }
 
 .App {
@@ -32,26 +29,6 @@ background-size: 43.36px 125.93px;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+

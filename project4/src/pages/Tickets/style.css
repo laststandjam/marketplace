@@ -1,3 +1,7 @@
-
-  .carousel-item{text-align: center;}
-  
+.cards {
+  background-color: #a239ca;
+}
+.carousel-item {
+  text-align: center;
+  background-color: #a239ca;
+}

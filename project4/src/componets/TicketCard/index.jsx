@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Firebase from "../../resources/FireBase/firebase";
 import firebase from "firebase";
 import {useParams} from 'react-router-dom'
+import "./style.css"
 
 
 const TicketCard = () => {
@@ -149,20 +150,20 @@ const TicketCard = () => {
   }, [ticket]);
   
   if (ticket && ticket.setteled){
-    return(<div>
+    return(<div className="card" style={{   background:'#A239Ca'}}>
          <h1>{ticket.title}</h1>
 <h2>Congrats {ticket.winner[0]}!!! {(+ticket.wager*2)*.99} Zed have been deposisted in your account</h2>
         </div>
     )
   }else if(ticket && ticket.disputed){
     return(
-    <div>
+    <div style={{   background:'#A239Ca'}}>>
       <h1>{ticket.tile}</h1>
   <h2>This ticket has come into dispute a mark has been added agaisnt both profiles and you haven given the house {ticket.wager*2} Zed </h2>
     </div>)
   }else if(ticket&&ticket.open){
     return(
-      <div>
+      <div style={{   background:'#A239Ca'}}>>
          <h1>{ticket.title}</h1>
          <h2>{ticket.description}</h2>
         <h3>Buy ticket for {ticket.wager} Zed</h3>
@@ -176,7 +177,7 @@ const TicketCard = () => {
       </div>
     )}
     if(ticket&&!ticket.open){ console.log( ticket)
-      return(<div>
+      return(<div style={{   background:'#A239Ca'}}>>
           <h1>{ticket.title}</h1>
         <h2>{ticket.description}</h2>
         <h3>Playing this ticket are</h3>

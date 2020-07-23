@@ -1,5 +1,6 @@
 div{
     text-align: center;
+    color: #E7DfDD
 }
 .whales{
     list-style: none;
@@ -8,6 +9,6 @@ div{
 li{
     margin: auto;
     max-width: 25%;
-    background-color: lightgreen;
-    color: orange;
+   
+    color: #E7DfDD;
 }

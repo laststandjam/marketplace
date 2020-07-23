@@ -91,7 +91,7 @@ return(
      outsideChevron={false}
      chevronWidth={chevronWidth}>
       {inPlayTickets.map((t,i)=>(
-        <Card classname="cards" key={i}><Card.Title style={{opacity:"01"}}>{t.title}</Card.Title><Card.Body>{t.wager}<p>{t.description}</p><p>{t.author}</p></Card.Body><Card.Footer><button><Link to={`/tickets/${t.id}`} >Play Ticket</Link></button></Card.Footer></Card>
+        <Card className="cards" key={i} style={{ background:'#A239Ca'}} ><Card.Title style={{opacity:"01"}}>{t.title}</Card.Title><Card.Body>{t.wager}<p>{t.description}</p><p>{t.author}</p></Card.Body><Card.Footer><button><Link to={`/tickets/${t.id}`} >Play Ticket</Link></button></Card.Footer></Card>
           ))}
            </ItemsCarousel>
            <div classname="scroll" style={{"padding":"0 60px","maxWidth":1000,"margin":"0 auto"}}>

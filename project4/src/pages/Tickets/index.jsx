@@ -28,9 +28,10 @@ const Tickets =(currentUser)=>{
 return(
   <>
    
-<Carousel style={{maxWidth:"50%", display: "block", marginLeft: "auto", marginRight: "auto"}}indicators={false}>
+<Carousel style={{maxWidth:"50%", display: "block", marginLeft: "auto", marginRight: "auto", marginTop: "100px"}}indicators={false}>
 {tickets.map((t,i)=>(<Carousel.Item key={i}>
-<Card classname="cards"><Card.Title style={{opacity:"01"}}>{t.title}</Card.Title><Card.Body>{t.wager}<p>{t.description}</p><p>{t.author}</p></Card.Body><Card.Footer><button><Link to={`/tickets/${t.id}`} >Interested??</Link></button></Card.Footer></Card>
+<Card style={{ background:'#A239Ca'}}>
+<Card.Title style={{opacity:"01"}}>{t.title}</Card.Title><Card.Body>{t.wager}<p>{t.description}</p><p>{t.author}</p></Card.Body><Card.Footer><button><Link to={`/tickets/${t.id}`} >Interested??</Link></button></Card.Footer></Card>
   </Carousel.Item>))}
 </Carousel>
 

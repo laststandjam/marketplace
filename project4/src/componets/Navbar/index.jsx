@@ -27,12 +27,12 @@ const NavBar = ({ isLoggedIn, currentUser }) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <NavLink style={{color:' #fad250'}}exact to="/" className="nav-link">
+          <NavLink style={{color:' #E7DfDD'}}exact to="/" className="nav-link">
             Home
           </NavLink >
           {isLoggedIn ? (
             <>
-              <span style={{color:' #fad250'}}
+              <span style={{color:'#E7DfDD'}}
                 className={"nav-link"}
                 onClick={logoutUser}
               >
@@ -40,15 +40,15 @@ const NavBar = ({ isLoggedIn, currentUser }) => {
               </span>
             </>
           ) : (
-          <NavLink exact to="/login" className="nav-link" style={{color:' #fad250'}}>
+          <NavLink exact to="/login" className="nav-link" style={{color:' #E7DfDD'}}>
               Login
             </NavLink>
           )
           }
-          <NavLink exact to="/user" style={{color:' #fad250'}} className="nav-link">
+          <NavLink exact to="/user" style={{color:' #E7DfDD'}} className="nav-link">
             Profile
           </NavLink>
-          <NavDropdown style={{color:' #fad250'}} title="Tickets" id="basic-nav-dropdown" >
+          <NavDropdown style={{color:' #E7DfDD'}} title="Tickets" id="basic-nav-dropdown" >
             <NavDropdown.Item>
               <NavLink exact to="/tickets"  style={{color:' #fad250'}}>
                 {" "}
