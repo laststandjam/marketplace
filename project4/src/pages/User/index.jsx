@@ -4,7 +4,7 @@ import {Link, Red} from 'react-router-dom'
 import {useSession} from "../../App"
 import {CardDeck, Card,} from 'react-bootstrap'
 import ItemsCarousel from 'react-items-carousel';
-import Carousel from 'react-multi-carousel';
+
 import 'react-multi-carousel/lib/styles.css';
 import './style.css'
 

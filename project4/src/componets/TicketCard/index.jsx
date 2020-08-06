@@ -177,7 +177,7 @@ const TicketCard = () => {
       </div>
     )}
     if(ticket&&!ticket.open){ console.log( ticket)
-      return(<div style={{   background:'#A239Ca'}}>>
+      return(<div style={{ background:'#A239Ca'}}>>
           <h1>{ticket.title}</h1>
         <h2>{ticket.description}</h2>
         <h3>Playing this ticket are</h3>

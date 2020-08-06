@@ -38,14 +38,7 @@ const NavBar = ({ isLoggedIn, currentUser }) => {
               >
                 Logout
               </span>
-            </>
-          ) : (
-          <NavLink exact to="/login" className="nav-link" style={{color:' #E7DfDD'}}>
-              Login
-            </NavLink>
-          )
-          }
-          <NavLink exact to="/user" style={{color:' #E7DfDD'}} className="nav-link">
+              <NavLink exact to="/user" style={{color:' #E7DfDD'}} className="nav-link">
             Profile
           </NavLink>
           <NavDropdown style={{color:' #E7DfDD'}} title="Tickets" id="basic-nav-dropdown" >
@@ -61,6 +54,15 @@ const NavBar = ({ isLoggedIn, currentUser }) => {
               </NavLink>
             </NavDropdown.Item>
           </NavDropdown>
+            </>
+          ) : (
+          <NavLink exact to="/login" className="nav-link" style={{color:' #E7DfDD'}}>
+              Login
+            </NavLink>
+          )
+          }
+          
+          
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
