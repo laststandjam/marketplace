@@ -3,6 +3,7 @@ import Firebase from "../../resources/FireBase/firebase"
 import {Link} from "react-router-dom"
 import "./style.css"
 
+
 const Home =()=>{
   const [topUsers, setTopUsers] = useState([])
   const [topTickets, setTopTickets]= useState([])
@@ -36,6 +37,7 @@ const Home =()=>{
    <br></br>
    At the Market we buy Tickets with Zed in hopes <br></br> of getting more Zed create tickets for sports politics or just farting around with Friends Get enough Zed and get in the Zed Whale Board!! Get started by <Link exact to='/login'>Loggin IN</Link>
    <p></p><p></p>
+   <img src="assests/whale.png" alt="white wale" width="500" height="500"/>
    <h3>The Zed Whales</h3>
    <ol className="whales">
       {topUsers.map((c,d)=>(

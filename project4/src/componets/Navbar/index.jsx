@@ -1,6 +1,6 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import './style.css'
+import "./style.css";
 import {
   Nav,
   Navbar,
@@ -9,7 +9,6 @@ import {
   NavDropdown,
   FormControl
 } from "react-bootstrap";
-
 
 import firebase from "../../resources/FireBase/firebase";
 
@@ -27,42 +26,69 @@ const NavBar = ({ isLoggedIn, currentUser }) => {
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
         <Nav className="mr-auto">
-          <NavLink style={{color:' #E7DfDD'}}exact to="/" className="nav-link">
+          <NavLink
+            style={{ color: " #E7DfDD" }}
+            exact
+            to="/"
+            className="nav-link"
+          >
             Home
-          </NavLink >
+          </NavLink>
           {isLoggedIn ? (
             <>
-              <span style={{color:'#E7DfDD'}}
+              <span
+                style={{ color: "#E7DfDD" }}
                 className={"nav-link"}
                 onClick={logoutUser}
               >
                 Logout
               </span>
-              <NavLink exact to="/user" style={{color:' #E7DfDD'}} className="nav-link">
-            Profile
-          </NavLink>
-          <NavDropdown style={{color:' #E7DfDD'}} title="Tickets" id="basic-nav-dropdown" >
-            <NavDropdown.Item>
-              <NavLink exact to="/tickets"  style={{color:' #fad250'}}>
-                {" "}
-                Browse{" "}
+              <NavLink
+                exact
+                to="/user"
+                style={{ color: " #E7DfDD" }}
+                className="nav-link"
+              >
+                Profile
               </NavLink>
-            </NavDropdown.Item>
-            <NavDropdown.Item>
-              <NavLink exact to="/create"  style={{color:' #fad250'}}>
-                Make a Ticket
-              </NavLink>
-            </NavDropdown.Item>
-          </NavDropdown>
+              <NavDropdown
+                style={{ color: " #E7DfDD" }}
+                title="Tickets"
+                id="basic-nav-dropdown"
+              >
+                <NavDropdown.Item>
+                  <NavLink exact to="/tickets" style={{ color: " #fad250" }}>
+                    {" "}
+                    Browse{" "}
+                  </NavLink>
+                </NavDropdown.Item>
+                <NavDropdown.Item>
+                  <NavLink exact to="/create" style={{ color: " #fad250" }}>
+                    Make a Ticket
+                  </NavLink>
+                </NavDropdown.Item>
+              </NavDropdown>
             </>
           ) : (
-          <NavLink exact to="/login" className="nav-link" style={{color:' #E7DfDD'}}>
-              Login
-            </NavLink>
-          )
-          }
-          
-          
+            <>
+              <NavLink
+                exact
+                to="/login"
+                className="nav-link"
+                style={{ color: "#E7DfDD" }}
+              >
+                Login
+              </NavLink>
+              
+              <NavLink
+                exact
+                to="/signup"
+                className="nav-link"
+                style={{ color: " #E7DfDD" }}
+              >Sign UP</NavLink>
+              
+            </>
+          )}
         </Nav>
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
@@ -72,6 +98,5 @@ const NavBar = ({ isLoggedIn, currentUser }) => {
     </Navbar>
   );
 };
-
 
 export default NavBar;
