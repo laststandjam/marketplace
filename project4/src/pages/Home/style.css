@@ -2,13 +2,19 @@ div{
     text-align: center;
     color: #E7DfDD
 }
+.whale-box{
+    margin: auto;
+    border: white solid 1px; 
+    width: 400px;
+    text-align: start;
+}
 .whales{
     list-style: none;
     
 }
 li{
     margin: auto;
-    max-width: 25%;
+    text-align: center;
    
     color: #E7DfDD;
 }
