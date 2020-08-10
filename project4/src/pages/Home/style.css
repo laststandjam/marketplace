@@ -1,12 +1,18 @@
 div{
     text-align: center;
-    color: #E7DfDD
+    color: #E7DfDD;
+   
+    
+}
+.homePage{
+    font-family: BerkshireSwash
 }
 .whale-box{
     margin: auto;
     border: white solid 1px; 
     width: 400px;
     text-align: start;
+    font-family: BerkshireSwash
 }
 .whales{
     list-style: none;

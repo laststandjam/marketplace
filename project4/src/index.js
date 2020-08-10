@@ -5,6 +5,9 @@ import App from "./App";
 import { BrowserRouter as Router } from "react-router-dom";
 import * as serviceWorker from "./serviceWorker";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './resources/Fonts/Russo_One/RussoOne-Regular.ttf'
+import './resources/Fonts/Roboto_Mono/static/RobotoMono-Regular.ttf'
+import './resources/Fonts/Berkshire_Swash/BerkshireSwash-Regular.ttf'
 
 
 ReactDOM.render(

@@ -32,8 +32,8 @@ const Home = () => {
     return () => {};
   }, []);
   return (
-    <div>
-      <h1>Welcom to Zed's Market</h1>
+    <div className="homePage">
+      <h1>Welcome to Zed's Market</h1>
       <br></br>
       At the Market we buy Tickets with Zed in hopes <br></br> of getting more
       Zed create tickets for sports politics or just farting around with Friends

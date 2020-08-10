@@ -28,6 +28,7 @@ const Tickets =(currentUser)=>{
 return(
   <>
    <h1 id="header">The Market Place</h1>
+
 <Carousel style={{maxWidth:"50%", display: "block", marginLeft: "auto", marginRight: "auto", marginTop: "100px"}}indicators={false}>
 {tickets.map((t,i)=>(<Carousel.Item key={i}>
 <Card style={{ background:'#A239Ca'}}>
