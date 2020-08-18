@@ -96,6 +96,7 @@ return(
            </ItemsCarousel>
            <div classname="scroll" style={{"padding":"0 60px","maxWidth":1000,"margin":"0 auto"}}>
              <ul>
+               <h3>History</h3>
       {closedTickets.map((c,d)=>(
         
         <li key={d}>
